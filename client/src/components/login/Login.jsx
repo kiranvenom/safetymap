@@ -52,6 +52,9 @@ const Login = () => {
 					},
 				});
 				navigate('/');
+				setTimeout(() => {
+					window.location.reload();
+				}, 500);
 			})
 			.catch(() => {
 				enqueueSnackbar('please register', {
