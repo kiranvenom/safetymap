@@ -1,18 +1,81 @@
 import { useState } from 'react';
 import Nav from '../nav/Nav';
+import { useSnackbar } from 'notistack';
+import config from '../../config/workspace';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
+	const { enqueueSnackbar } = useSnackbar();
+	const navigate = useNavigate();
+
 	const [formData, setformData] = useState({
 		email: '',
 		password: '',
 	});
 
+	const handleInput = (e) => {
+		const { name, value } = e.target;
+		setformData({ ...formData, [name]: value });
+	};
+
+	const validateData = (data) => {
+		if (!data.email || !data.password) {
+			enqueueSnackbar('Email and password are required', {
+				variant: 'warning',
+				anchorOrigin: {
+					vertical: 'bottom',
+					horizontal: 'center',
+				},
+			});
+			return false;
+		}
+
+		setformData({
+			email: '',
+			password: '',
+		});
+
+		return true;
+	};
+
+	const loginUser = async (formData) => {
+		await axios
+			.post(config.endPoint + '/api/login', formData)
+			.then(() => {
+				localStorage.setItem('userEmail', formData.email);
+				enqueueSnackbar('Login successfuly', {
+					variant: 'success',
+					anchorOrigin: {
+						vertical: 'bottom',
+						horizontal: 'center',
+					},
+				});
+				navigate('/');
+			})
+			.catch(() => {
+				enqueueSnackbar('please register', {
+					variant: 'error',
+					anchorOrigin: {
+						vertical: 'bottom',
+						horizontal: 'center',
+					},
+				});
+			});
+	};
 
 	return (
 		<>
 			<Nav />
 			<div className='w-full h-[80vh]'>
-				<form className='m-auto flex flex-col justify-center items-center h-full'>
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						if (validateData(formData)) {
+							loginUser(formData);
+						}
+					}}
+					className='m-auto flex flex-col justify-center items-center h-full'>
 					<h1 className='mb-10 text-2xl uppercase'>Login</h1>
 					<label className='input input-bordered flex items-center gap-2 mb-2'>
 						<svg
@@ -26,6 +89,9 @@ const Login = () => {
 							type='text'
 							className='grow'
 							placeholder='Email'
+							name='email'
+							onChange={(e) => handleInput(e)}
+							value={formData.email}
 						/>
 					</label>
 					<label className='input input-bordered flex items-center gap-2'>
@@ -43,6 +109,9 @@ const Login = () => {
 							type='password'
 							className='grow'
 							placeholder='Password'
+							name='password'
+							onChange={(e) => handleInput(e)}
+							value={formData.password}
 						/>
 					</label>
 

@@ -29,7 +29,28 @@ const postNewUser = async (req, res) => {
 	}
 };
 
+const loginUser = async (req, res) => {
+	try {
+		const { email, password } = req.body;
+
+		const users = await user.findOne({ email });
+		if (!users) {
+			return res.status(400).send('Invalid email or password');
+		}
+
+		if (users.password !== password) {
+			return res.status(400).send('Invalid email or password');
+		}
+
+		res.status(200).send({ message: 'Login successful', users });
+	} catch (error) {
+		console.error(error);
+		res.status(500).send('Internal server error');
+	}
+};
+
 module.exports = {
 	getUsers,
 	postNewUser,
+	loginUser,
 };
