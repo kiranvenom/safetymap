@@ -7,13 +7,20 @@ const Nav = () => {
 	const { userMail, handleLogout } = useContext(userLoginContext);
 
 	return (
-		<div className='flex justify-between items-center h-[4rem] pl-4 pr-4 lg:pl-0 lg:pr-0 lg:max-w-[1200px] m-auto border-b border-black'>
+		<div className='flex justify-between items-center h-[4rem] pl-4 pr-4 lg:pl-0 lg:pr-0 lg:max-w-[1400px] m-auto'>
 			<Link to={'/'}>
 				<img className='w-[100px] rounded-full' src={logo} alt='logo' />
 			</Link>
-			<div className='flex gap-6'>
+			<div className='flex gap-6 items-center'>
 				{userMail !== null ? (
 					<>
+						<div>
+							<input
+								className='px-4 py-1 rounded-md'
+								type='search'
+								placeholder='search for place '
+							/>
+						</div>
 						<div className='flex items-center gap-4'>
 							<span className='bg-white px-4 py-1 rounded-full cursor-none drop-shadow-md'>
 								{userMail}
@@ -27,6 +34,13 @@ const Nav = () => {
 					</>
 				) : (
 					<>
+						<div>
+							<input
+								className='px-4 py-1 rounded-md'
+								type='search'
+								placeholder='search for place '
+							/>
+						</div>
 						<Link className='btn drop-shadow-md' to={'/login'}>
 							Login
 						</Link>
