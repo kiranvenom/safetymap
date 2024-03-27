@@ -8,9 +8,9 @@ const locationSchema = new Schema(
 		latitude: { type: Number, required: true },
 		longitude: { type: Number, required: true },
 		safetyConcern: { type: String, required: true },
-		safetyConcernExpirence: { type: String },
+		safetyConcernExpirence: String,
 		safetyZone: { type: String, required: true },
-		comments: { type: String },
+		comments: { type: String, required: true },
 	},
 	{
 		timestamps: true,

@@ -3,19 +3,21 @@ const Location = require('../models/location');
 // Create pin
 const createPin = async (req, res) => {
 	const {
+		userMail,
 		latitude,
 		longitude,
 		safetyConcern,
-		safetyConcernExperience,
+		safetyConcernExpirence,
 		safetyZone,
 		comments,
 	} = req.body;
 
 	const newPin = new Location({
+		userMail,
 		latitude,
 		longitude,
 		safetyConcern,
-		safetyConcernExperience,
+		safetyConcernExpirence,
 		safetyZone,
 		comments,
 	});
