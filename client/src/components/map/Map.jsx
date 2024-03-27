@@ -10,7 +10,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 import { format } from 'timeago.js';
 
-import safetyZones from '../../data/safetyZones';
+import safetyColors from '../../data/safeColors';
 
 const Mapcomp = () => {
 	const [pins, setPins] = React.useState([]);
@@ -99,6 +99,7 @@ const Mapcomp = () => {
 								latitude={p.latitude}
 								anchor='bottom'>
 								<IoLocationSharp
+									color={safetyColors[p.safetyZone]}
 									className='cursor-pointer'
 									size={50}
 									onClick={() => {
@@ -129,7 +130,12 @@ const Mapcomp = () => {
 									<h1 className='text-sm mt-3'>
 										Safety Zone Level
 									</h1>
-									<h2 className='bg-green-500 p-1 px-2 rounded-md font-bold text-2xl'>
+									<h2
+										style={{
+											backgroundColor:
+												safetyColors[p.safetyZone],
+										}}
+										className={`p-1 px-2 rounded-md font-bold text-2xl shadow-lg text-white`}>
 										{p.safetyZone}
 									</h2>
 
