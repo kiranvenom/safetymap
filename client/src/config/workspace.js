@@ -1,3 +1,3 @@
-const config = { endPoint: 'http://localhost:5000' };
+const config = { endPoint: 'https://safetymapbe.onrender.com' };
 
 export default config;
