@@ -10,6 +10,8 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 import { format } from 'timeago.js';
 
+import safetyZones from '../../data/safetyZones';
+
 const Mapcomp = () => {
 	const [pins, setPins] = React.useState([]);
 	const [currentPopUpOpen, setCurrentPopUpOpen] = React.useState([]);
@@ -17,8 +19,8 @@ const Mapcomp = () => {
 	const [viewState, setViewState] = React.useState({
 		width: '100vw',
 		height: '100vh',
-		longitude: 77.590624,
-		latitude: 12.980833,
+		longitude: 77.6071753193122,
+		latitude: 12.875672886585349,
 		zoom: 17,
 	});
 
@@ -127,7 +129,7 @@ const Mapcomp = () => {
 									<h1 className='text-sm mt-3'>
 										Safety Zone Level
 									</h1>
-									<h2 className='bg-yellow-500 p-1 rounded-md font-bold text-white text-2xl'>
+									<h2 className='bg-green-500 p-1 px-2 rounded-md font-bold text-2xl'>
 										{p.safetyZone}
 									</h2>
 
@@ -135,8 +137,8 @@ const Mapcomp = () => {
 										Information
 									</h3>
 									<h4>
-										created by{' '}
-										<span className='font-bold'>
+										created by{'  '}
+										<span className='font-bold bg-slate-200 px-2 rounded-full'>
 											{p.userMail}
 										</span>
 									</h4>
