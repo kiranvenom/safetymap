@@ -1,14 +1,28 @@
 import { useEffect, useState } from 'react';
 import safeZone from '../../data/safetyZones';
 import safetyConcern from '../../data/safetyConcern';
+import axios from 'axios';
+import config from '../../config/workspace';
+import { useSnackbar } from 'notistack';
 
-const PinForm = () => {
-	// console.log(safeZone);
+const PinForm = ({ longitude, latitude }) => {
+	const { enqueueSnackbar } = useSnackbar();
+
 	const [zone, setzone] = useState([]);
 	const [concerns, setConcern] = useState([]);
 	const [selectedZone, setSelectedZone] = useState(null);
 
 	const [isother, setisother] = useState(false);
+
+	const [formData, setFormData] = useState({
+		userMail: localStorage.getItem('userEmail'),
+		latitude: latitude,
+		longitude: longitude,
+		safetyConcern: '',
+		safetyConcernExpirence: '',
+		safetyZone: '',
+		comments: '',
+	});
 
 	useEffect(() => {
 		setzone(safeZone);
@@ -17,6 +31,11 @@ const PinForm = () => {
 
 	const handleRadioChange = (e) => {
 		setSelectedZone(e.target.value);
+		const { name, value } = e.target;
+		setFormData({
+			...formData,
+			[name]: value,
+		});
 	};
 
 	const handleOther = (e) => {
@@ -27,15 +46,55 @@ const PinForm = () => {
 		}
 	};
 
+	const handleInputChange = (e) => {
+		const { name, value } = e.target;
+		setFormData({
+			...formData,
+			[name]: value,
+		});
+	};
+
+	const handleFormSubmit = async (e) => {
+		e.preventDefault();
+
+		await axios
+			.post(config.endPoint + '/api/createpins', formData)
+			.then(() => {
+				enqueueSnackbar('Location added successfuly', {
+					variant: 'success',
+					anchorOrigin: {
+						vertical: 'bottom',
+						horizontal: 'center',
+					},
+				});
+			})
+			.catch((err) => {
+				console.log(err);
+				enqueueSnackbar('Location did not added (Please login or check the form)', {
+					variant: 'error',
+					anchorOrigin: {
+						vertical: 'bottom',
+						horizontal: 'center',
+					},
+				});
+			});
+	};
+
 	return (
-		<form className='bg-white p-4 w-[fit-content] rounded-lg'>
+		<form
+			onSubmit={handleFormSubmit}
+			className='bg-white p-4 w-[fit-content] rounded-lg'>
 			<h1 className='font-bold text-xl mb-2'>Safety concern</h1>
 			<select
+				required
 				className='border border-black rounded-md p-1'
-				name='pin'
-				id='pin'
+				name='safetyConcern'
+				id='safetyConcern'
 				defaultValue=''
-				onChange={handleOther}>
+				onChange={(e) => {
+					handleInputChange(e);
+					handleOther(e);
+				}}>
 				<option value='' disabled>
 					Select your option
 				</option>
@@ -49,6 +108,11 @@ const PinForm = () => {
 			<div>
 				{isother && (
 					<input
+						required
+						onChange={(e) => {
+							handleInputChange(e);
+						}}
+						name='safetyConcernExpirence'
 						className='border border-black px-4 py-1 rounded-md mt-2 w-full'
 						type='text'
 						placeholder='experience in a few words'
@@ -66,8 +130,9 @@ const PinForm = () => {
 							htmlFor={z.name}>
 							{z.name}
 							<input
+								required
 								type='radio'
-								name='safety'
+								name='safetyZone'
 								value={z.name}
 								id={z.name}
 								onChange={handleRadioChange}
@@ -79,7 +144,11 @@ const PinForm = () => {
 			</div>
 
 			<textarea
+				onChange={(e) => {
+					handleInputChange(e);
+				}}
 				required
+				name='comments'
 				placeholder='Comments'
 				className='border border-black rounded-md p-2'
 				cols='30'

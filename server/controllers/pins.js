@@ -7,7 +7,7 @@ const createPin = async (req, res) => {
 		latitude,
 		longitude,
 		safetyConcern,
-		safetyConcernExperience,
+		safetyConcernExpirence,
 		safetyZone,
 		comments,
 	} = req.body;
@@ -17,7 +17,7 @@ const createPin = async (req, res) => {
 		latitude,
 		longitude,
 		safetyConcern,
-		safetyConcernExperience,
+		safetyConcernExpirence,
 		safetyZone,
 		comments,
 	});
