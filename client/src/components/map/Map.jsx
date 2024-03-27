@@ -76,10 +76,8 @@ const Mapcomp = () => {
 		});
 	};
 
-	console.log(pins);
-
 	return (
-		<div className='w-[95vw] h-[89vh] bg-[#E0E0CE] m-auto rounded-lg border border-black relative drop-shadow-md overflow-hidden'>
+		<div className='lg:w-[95vw] lg:h-[89vh] bg-[#E0E0CE] m-auto rounded-lg border border-black relative drop-shadow-md overflow-hidden'>
 			<button
 				onClick={handleCurrentLocation}
 				className='flex justify-center items-center w-[50px] h-[50px] absolute z-10 bg-[#F2F3D9] rounded-full top-4 left-4 border border-black drop-shadow-md'>
