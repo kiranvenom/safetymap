@@ -29,7 +29,13 @@ const PinForm = () => {
 
 	return (
 		<form className='bg-white p-4 w-[fit-content] rounded-lg'>
-			<select name='pin' id='pin' defaultValue='' onChange={handleOther}>
+			<h1 className='font-bold text-xl mb-2'>Safety concern</h1>
+			<select
+				className='border border-black rounded-md p-1'
+				name='pin'
+				id='pin'
+				defaultValue=''
+				onChange={handleOther}>
 				<option value='' disabled>
 					Select your option
 				</option>

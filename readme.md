@@ -23,7 +23,7 @@ To get started with SafetyMap, follow these steps:
 
 4. **Run the Application:** Start the SafetyMap server and launch the application.
 
-5. **Explore Safety Information:** Once the server is running, open your web browser and navigate to `http://localhost:5173` to access SafetyMap. Register an account if you haven't already and start exploring safety information on the map.
+5. **Explore Safety Information:** Once the server is running, open your web browser and navigate to `http://localhost:3000` to access SafetyMap. Register an account if you haven't already and start exploring safety information on the map.
 
 ## Contact
 
