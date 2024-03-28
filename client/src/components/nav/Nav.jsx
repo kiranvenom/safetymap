@@ -14,13 +14,6 @@ const Nav = () => {
 			<div className='flex gap-6 items-center'>
 				{userMail !== null ? (
 					<>
-						<div>
-							<input
-								className='px-4 py-1 rounded-md'
-								type='search'
-								placeholder='search for place '
-							/>
-						</div>
 						<div className='flex items-center gap-4'>
 							<span className='bg-white px-4 py-1 rounded-full cursor-none drop-shadow-md'>
 								{userMail}
@@ -34,13 +27,6 @@ const Nav = () => {
 					</>
 				) : (
 					<>
-						<div>
-							<input
-								className='px-4 py-1 rounded-md'
-								type='search'
-								placeholder='search for place '
-							/>
-						</div>
 						<Link className='btn drop-shadow-md' to={'/login'}>
 							Login
 						</Link>
