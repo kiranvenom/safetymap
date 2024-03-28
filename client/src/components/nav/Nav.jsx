@@ -9,7 +9,11 @@ const Nav = () => {
 	return (
 		<div className='flex justify-between items-center h-[4rem] pl-4 pr-4 lg:pl-0 lg:pr-0 lg:max-w-[1400px] m-auto'>
 			<Link to={'/'}>
-				<img className='w-[100px] rounded-full' src={logo} alt='logo' />
+				<img
+					className='hidden lg:block w-[100px] rounded-full'
+					src={logo}
+					alt='logo'
+				/>
 			</Link>
 			<div className='flex gap-6 items-center'>
 				{userMail !== null ? (

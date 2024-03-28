@@ -4,6 +4,7 @@ const safetyConcern = [
 	'Harassment through verbal',
 	'non-verbal, or physical actions',
 	'Lack of Security Presence',
+	'Poor Lighting',
 	'Deserted Area',
 	'others',
 ];
