@@ -14,6 +14,9 @@ import safetyColors from '../../data/safeColors';
 
 import { FaSearchLocation } from 'react-icons/fa';
 
+import 'react-tooltip/dist/react-tooltip.css';
+import { Tooltip } from 'react-tooltip';
+
 const Mapcomp = () => {
 	const [pins, setPins] = React.useState([]);
 	const [currentPopUpOpen, setCurrentPopUpOpen] = React.useState([]);
@@ -106,6 +109,8 @@ const Mapcomp = () => {
 		setSearchLocation('');
 	};
 
+	console.log(pins);
+
 	return (
 		<div className='lg:w-[95vw] lg:h-[89vh] bg-[#E0E0CE] m-auto rounded-lg border border-black relative drop-shadow-md overflow-hidden'>
 			<button
@@ -141,21 +146,29 @@ const Mapcomp = () => {
 					return (
 						<div key={p._id}>
 							<Marker
+								id='tt'
 								longitude={p.longitude}
 								latitude={p.latitude}
 								anchor='bottom'>
-								<IoLocationSharp
-									color={safetyColors[p.safetyZone]}
-									className='cursor-pointer'
-									size={50}
-									onClick={() => {
-										handleCurrentOpenPopUp(
-											p._id,
-											p.longitude,
-											p.latitude,
-										);
-									}}
-								/>
+								<Tooltip id='tt' />
+								<a
+									data-tooltip-id='tt'
+									data-tooltip-content={p.comments}
+									data-tooltip-place='top'>
+									<IoLocationSharp
+										id='tt'
+										color={safetyColors[p.safetyZone]}
+										className='cursor-pointer'
+										size={50}
+										onClick={() => {
+											handleCurrentOpenPopUp(
+												p._id,
+												p.longitude,
+												p.latitude,
+											);
+										}}
+									/>
+								</a>
 							</Marker>
 
 							{currentPopUpOpen === p._id && (
