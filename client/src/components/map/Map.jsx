@@ -12,15 +12,18 @@ import { format } from 'timeago.js';
 
 import safetyColors from '../../data/safeColors';
 
+import { FaSearchLocation } from 'react-icons/fa';
+
 const Mapcomp = () => {
 	const [pins, setPins] = React.useState([]);
 	const [currentPopUpOpen, setCurrentPopUpOpen] = React.useState([]);
 	const [newPlace, setNewPlace] = React.useState(null);
+	const [searchLocation, setSearchLocation] = React.useState('');
 	const [viewState, setViewState] = React.useState({
 		width: '100vw',
 		height: '100vh',
-		longitude: 77.6071753193122,
-		latitude: 12.875672886585349,
+		longitude: 77.60491575678515,
+		latitude: 12.874669599860255,
 		zoom: 17,
 	});
 
@@ -78,6 +81,31 @@ const Mapcomp = () => {
 		});
 	};
 
+	const handleSearchLocation = (e) => {
+		setSearchLocation(e.target.value);
+	};
+
+	const submitSearchLocation = async (e) => {
+		e.preventDefault();
+
+		const { data } = await axios.get(
+			`https://api.mapbox.com/search/searchbox/v1/forward?q=${searchLocation}&access_token=${
+				import.meta.env.VITE_MapBox
+			}`,
+		);
+
+		let slatitude = data.features[0].properties.coordinates.latitude;
+		let slongitude = data.features[0].properties.coordinates.longitude;
+
+		setViewState({
+			...viewState,
+			longitude: slongitude,
+			latitude: slatitude,
+		});
+
+		setSearchLocation('');
+	};
+
 	return (
 		<div className='lg:w-[95vw] lg:h-[89vh] bg-[#E0E0CE] m-auto rounded-lg border border-black relative drop-shadow-md overflow-hidden'>
 			<button
@@ -85,6 +113,24 @@ const Mapcomp = () => {
 				className='flex justify-center items-center w-[50px] h-[50px] absolute z-10 bg-[#F2F3D9] rounded-full top-4 left-4 border border-black drop-shadow-md'>
 				<MdMyLocation size={25} />
 			</button>
+			<div className='absolute z-10 right-4 top-4 bg-[#F2F3D9] flex justify-center items-center rounded-full border border-black overflow-hidden px-2 py-2 gap-2'>
+				<FaSearchLocation size={25} />
+				<form onSubmit={(e) => submitSearchLocation(e)}>
+					<input
+						onChange={handleSearchLocation}
+						value={searchLocation}
+						name='searchLocation'
+						type='text'
+						placeholder='Search Location'
+						className='bg-[#F2F3D9] outline-none border-none'
+					/>
+					<button
+						className='border border-black px-4 py-1 rounded-full bg-slate-500 text-white'
+						type='submit'>
+						Search
+					</button>
+				</form>
+			</div>
 			<Map
 				{...viewState}
 				mapboxAccessToken={import.meta.env.VITE_MapBox}
@@ -163,7 +209,6 @@ const Mapcomp = () => {
 							closeOnClick={false}
 							onClose={() => setNewPlace(null)}>
 							<PinForm
-								onClose={() => setNewPlace(null)}
 								longitude={newPlace.longitude}
 								latitude={newPlace.latitude}
 							/>
