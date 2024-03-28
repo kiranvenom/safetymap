@@ -40,7 +40,7 @@ const Mapcomp = () => {
 			}
 		};
 		getPins();
-	}, []);
+	}, [pins]);
 
 	const handleCurrentLocation = async () => {
 		const result = navigator.geolocation.getCurrentPosition(
