@@ -132,6 +132,12 @@ const Mapcomp = () => {
 					</button>
 				</form>
 			</div>
+			<a
+				target='_blank'
+				className='absolute top-[4.5rem] right-[1.2rem] z-10 bg-[#F2F3D9] px-4 py-1 rounded-full font-bold border border-black'
+				href='https://github.com/kiranvenom/safetymap'>
+				Created by KIRAN
+			</a>
 			<Map
 				{...viewState}
 				mapboxAccessToken={import.meta.env.VITE_MapBox}
