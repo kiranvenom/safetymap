@@ -123,7 +123,7 @@ const Mapcomp = () => {
 						name='searchLocation'
 						type='text'
 						placeholder='Search Location'
-						className='bg-[#F2F3D9] outline-none border-none'
+						className='bg-[#F2F3D9] outline-none border-none w-[130px]'
 					/>
 					<button
 						className='border border-black px-4 py-1 rounded-full bg-slate-500 text-white'
